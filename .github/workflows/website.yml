@@ -28,7 +28,7 @@ jobs:
           aws-region: us-east-1
       - name: "Sync files to S3 bucket"
         run: |
-          aws s3 sync ../website/ s3://$DOMAIN --delete
+          aws s3 sync website/ s3://$DOMAIN --delete
 
   # Runs OWASP ZAP Scan for web vulnerabilities
   zap_scan:
@@ -51,6 +51,7 @@ jobs:
   playwright_test:
     timeout-minutes: 60
     runs-on: self-hosted
+    needs: deploy
     steps:
     - name: Checkout
       uses: actions/checkout@v4
